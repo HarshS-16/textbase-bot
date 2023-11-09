@@ -99,7 +99,7 @@ export default function Bubble({ role, message, messageType }: IProps) {
             </button>
           </div>
         </div>
-        {audioUrl && <audio autoPlay controls={false} src={audioUrl} />}
+        {audioUrl && <audio autoPlay controls={true} src={audioUrl} />}
       </div>
     </div>
   );

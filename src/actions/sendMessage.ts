@@ -103,7 +103,7 @@ export function textToSpeech(text: string): Promise<string> {
     body: JSON.stringify({
       "model": "tts-1",
       "input": text,
-      "voice": "nova"
+      "voice": "echo"
     })
   })
   .then(res => res.blob())

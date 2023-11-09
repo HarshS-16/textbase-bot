@@ -67,27 +67,28 @@ function App() {
     }
   }, []);
 
-  const uploadFile = (file: File, fileType: string)=>{
-    if(!botId) {
-      setError("No Bot Id")
+  const uploadFile = (file: File, fileType: string) => {
+    if (!botId) {
+      setError('No Bot Id');
       return null;
     }
 
-    setUploading(true)
-    return upload(botId, file, fileType).then(url=>{
-      setUploading(false)
-      return url
-    })
-    .catch(e=>{
-      setUploading(false)
-      setBotError(e.message)
-      return null
-    })
-  }
+    setUploading(true);
+    return upload(botId, file, fileType)
+      .then(url => {
+        setUploading(false);
+        return url;
+      })
+      .catch(e => {
+        setUploading(false);
+        setBotError(e.message);
+        return null;
+      });
+  };
 
   const onMessage = (message: IContent) => {
     if (!botId) {
-      setError("No Bot Id")
+      setError('No Bot Id');
       return;
     }
     const userMessage: IMessage = {
@@ -115,20 +116,20 @@ function App() {
               role: 'assistant',
               content: resp.data.new_message,
             };
-            if(resp.session_id && !sessionId){
+            if (resp.session_id && !sessionId) {
               setSessionId(resp.session_id);
             }
-            setBotState(resp.data.state)
+            setBotState(resp.data.state);
             setMessages([...messages, newMessage]);
           } else {
             const newMessage: IMessage = {
               role: 'assistant',
               content: resp.data.data.new_message,
             };
-            if(resp.data.session_id && !sessionId){
+            if (resp.data.session_id && !sessionId) {
               setSessionId(resp.data.session_id);
             }
-            setBotState(resp.data.data.state)
+            setBotState(resp.data.data.state);
             setMessages([...messages, newMessage]);
           }
         }
@@ -146,7 +147,35 @@ function App() {
   };
 
   return (
-    <div className="flex justify-center bg-gradient-to-r from-amber-500 to-pink-500">
+    <div className="flex  bg-gradient-to-r from-amber-500 to-pink-500">
+      <div className='mx-6 my-10 flex flex-col gap-2 w-[550px] text-xs'>
+        <div className="border bg-white px-4 py-5 sm:px-4 bg-gray-100 border-[#141414] rounded-2xl">
+          <h3 className="text-base font-semibold leading-6 text-gray-900">
+            Your Overall Progress Report
+          </h3>
+          <p>
+            <img className='h-40 w-80' src='./stats.png'/>
+          </p>
+          <p className="mt-1 text-sm text-gray-500">
+            Your score is 7/15 .
+          </p>
+          <p className="mt-1 text-sm text-gray-500">
+            Weak Topics : You have to work on IOT data protocols such as MQTT and AQMP.
+          </p>
+          <p className="mt-1 text-sm text-gray-500">
+            Strong Topics : You have a very strong hold on topics such as SDN and have a basic understanding of IOT .
+          </p>
+        </div>
+        <div className="border bg-white px-4 py-5 sm:px-6 border-[#141414] rounded-2xl">
+        <h3 className="text-base font-semibold leading-6 text-gray-900">
+            Topic Summary
+          </h3>
+          <p className="mt-1 text-sm text-gray-500">
+          This summary provides a high-level view of the course content ranging from the foundational concepts, historical background, and practical applications of IoT, to the challenges and evolution of this rapidly growing field. The information is displayed in the application as a part of the user interface. The relevant code block for this is a part of the App function component in React and it uses JSX to render the summary on the screen. The summary is hard-coded in this case, but in a real-world application, it could be fetched from a server or a database.
+          </p>
+        </div>
+
+      </div>
       {botName && botId && (
         <HelmetProvider>
           <Helmet>
@@ -172,7 +201,11 @@ function App() {
           error={error}
           botInfoMessage={botInfo}
         />
-        <InputBar onMessage={onMessage} botName={botName} uploadFile={uploadFile} />
+        <InputBar
+          onMessage={onMessage}
+          botName={botName}
+          uploadFile={uploadFile}
+        />
       </div>
     </div>
   );
