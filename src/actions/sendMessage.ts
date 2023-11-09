@@ -89,11 +89,15 @@ export function upload(botId: Number, file: File, fileType: string):Promise<stri
   })
 }
 
+
+
 export function textToSpeech(text: string): Promise<string> {
+  const OPEN_API_KEY = process.env.REACT_APP_OPEN_API_KEY;
+  console.log(OPEN_API_KEY)
   return fetch('https://api.openai.com/v1/audio/speech', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${process.env.OPEN_API_KEY}`,
+      'Authorization': `Bearer ${OPEN_API_KEY}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({

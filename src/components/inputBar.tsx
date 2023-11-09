@@ -40,12 +40,13 @@ export default function InputBar({ onMessage, botName, uploadFile }: IProps) {
     formData.append('file', file);
     formData.append('model', 'whisper-1');
     formData.append('response_format', 'text');
+    const OPEN_API_KEY = process.env.REACT_APP_OPEN_API_KEY;
     const response = await axios.post(
       'https://api.openai.com/v1/audio/transcriptions',
       formData,
       {
         headers: {
-          Authorization: `Bearer ${process.env.OPEN_API_KEY}`,
+          Authorization: `Bearer ${OPEN_API_KEY}`,
           'Content-Type': 'multipart/form-data',
         },
       },
