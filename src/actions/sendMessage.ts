@@ -88,3 +88,23 @@ export function upload(botId: Number, file: File, fileType: string):Promise<stri
     throw Error(e)
   })
 }
+
+export function textToSpeech(text: string): Promise<string> {
+  return fetch('https://api.openai.com/v1/audio/speech', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer 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`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "model": "tts-1",
+      "input": text,
+      "voice": "nova"
+    })
+  })
+  .then(res => res.blob())
+  .then(blob => URL.createObjectURL(blob))
+  .catch(error => {
+    throw new Error(error);
+  });
+}
