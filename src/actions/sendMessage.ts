@@ -93,7 +93,7 @@ export function textToSpeech(text: string): Promise<string> {
   return fetch('https://api.openai.com/v1/audio/speech', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer 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`,
+      'Authorization': `Bearer ${process.env.OPEN_API_KEY}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({

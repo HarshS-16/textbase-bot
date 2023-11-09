@@ -45,7 +45,7 @@ export default function InputBar({ onMessage, botName, uploadFile }: IProps) {
       formData,
       {
         headers: {
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer ${process.env.OPEN_API_KEY}`,
           'Content-Type': 'multipart/form-data',
         },
       },
